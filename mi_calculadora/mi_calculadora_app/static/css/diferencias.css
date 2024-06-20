@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html, body {
+    overflow-x: hidden; /* Oculta cualquier desbordamiento horizontal */
+}
+
+
+/*INPUT CSS*/
+  
+/* General Input  */
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #3572EF;
+    background: rgba(255, 255, 255, 0.813);
+    border-radius: 5px;
+    outline: none;
+    color: #000;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+/*  InputBoxP */
+.inputBoxP {
+    position: relative;
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+.inputBoxP input {
+    width: 60%; 
+    margin: 0 auto; 
+}
+
+.inputBoxP span {
+    position: absolute;
+    left: calc(20% + 10px); 
+    transform: translateX(-5%);
+    padding: 10px 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: #666777;
+    text-transform: uppercase;
+    transition: 0.5s;
+
+}
+
+
+/* Regular InputBox */
+.inputBox {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+
+.inputBox  span{
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color:#666777 ;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.inputPuntos {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-left: 10px;
+    margin-top: 35px;
+    margin-bottom: 0;
+    
+}
+
+.inputPuntos .inputBox {
+    text-align: left; 
+}
+
+
+.inputPuntos p {
+    color: #000;
+    font-size: 0.8em;
+    margin-bottom: 5px; 
+    text-align: left; 
+}
+
+
+.inputBoxP input:valid ~ span,
+.inputBoxP input:focus ~ span,
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span{
+    color: #fff;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    background-color: #449bff;
+    border-left: 1px solid #2484f1;
+    border-right: 1px solid #2484f1;
+    letter-spacing: 0.2em;
+    border-radius: 3px;
+}
+
+.inputBoxP:nth-child(3) input:valid ~ span,
+.inputBoxP:nth-child(3) input:focus ~ span,
+.inputBox:nth-child(3) input:valid ~ span,
+.inputBox:nth-child(3) input:focus ~ span{
+background: #3572EF;
+color: #000;
+border-radius: 2px;
+}
+
+.inputBoxP input:valid,
+.inputBoxP input:focus,
+.inputBox input:valid,
+.inputBox input:focus{
+border: 2px solid #2484f1;
+}
+
+
+/*CSS CONTENIDO DE DEFINICION DE VARIABLES DEL METODO*/
+.Definicion-variables{
+    min-height: 100vh;
+    width: 100vw;
+    background: #f5f5f5;
+    background:linear-gradient(to bottom, #2484f1, #f3efec);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+    text-align: center;
+    padding: 0 1rem;
+    position: relative;
+    overflow: hidden !important;
+}
+
+.Definicion-variables .Tittle-metodo{
+    color: #fff;
+    font-size: 3.5rem;
+    text-shadow: 0 .3rem .5rem rgba(0, 0, 0, 0.3);
+    padding-top: 100px;
+}
+
+.Definicion-variables .Pregunta-Puntos{
+    color: #fff;
+    font-size: 2.0rem;
+    font-weight: 400;
+    text-shadow: 0 .3rem .5rem rgba(0, 0, 0, 0.3);
+}
+
+.Definicion-variables button{
+    font-weight: 500;
+    padding: 5px 30px;
+    border: none;
+    color: #000;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.813);
+    box-shadow: 0 5px 10px rgba(255,255,255, 0.2);
+    cursor: pointer;
+    transition: .2s;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+.Definicion-variables button:hover{
+    opacity: 0.85;
+    letter-spacing: .1rem;
+    border:2px solid #2484f1;
+}
+
+
+
+.espacio{
+    margin-bottom: 20px;
+}
+
+/* Estilos para el div de respuesta */
+ .respuestas {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #2484f1;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px
+}
+
+/* Estilos para el span dentro del div de respuesta */
+.respuestaSpan{
+    background-color: #3572EF;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+/* Estilos para la tabla generada dinámicamente */
+.table {
+    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.table thead {
+    background-color: #3572EF;
+    color: #fff;
+}
+
+.table-bordered {
+    border: 2px solid #3572EF;
+}
+
+.table-bordered th, .table-bordered td {
+    border: 2px solid #3572EF;
+}
+
+.table-bordered thead {
+    border-bottom: 2px solid #3572EF;
+}
+
+.titulo2{
+    color: #3a3a3a;
+    font-size: 1.5rem;
+    text-shadow: 0 .3rem .5rem rgba(0, 0, 0, 0.3);
+    padding-top: 30px;
+}

@@ -1,0 +1,163 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diferencias Divididas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static '/css/diferencias.css'%}">
+    <link rel="stylesheet" href="{% static '/css/navbar.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+     <!--NAVBAR CSS-->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand me-auto" href="#">HyperMath</a>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+              <li class="nav-item">
+                <a class="nav-link x-lg-2 active" aria-current="page" href="{% url "inicio" %}">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link mx-lg-2" href="{% url "EulerTeoria" %}">Teoria Euler</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link mx-lg-2" href="{% url "DividTeoria" %}">Teoria Divid</a>
+              </li>
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-2" href="#">Historial</a>
+                </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link mx-lg-2" href="{% url "perfil" %}">Estudiantes</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {% if user.is_authenticated %}
+          <a href={% url "logout" %} class="login-button">Cerrar Sesion</a>
+        {% else %}
+          <a href={% url "login" %} class="login-button">Iniciar Sesion</a>
+          <a href={% url "register" %} class="login-button">Registrarse</a>
+        {% endif %}
+        <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </nav>
+    
+      <section class="Definicion-variables" id="Definicion-variables">
+        <form method="POST"> 
+            {% csrf_token %} 
+            <h1 class="Tittle-metodo">Metodo de Diferencias Divididas</h1>
+            <p class="Pregunta-Puntos">Cuantos Puntos (x , y) tiene el problema?</p>
+
+            <div class="inputBoxP">
+              <p>Escriba la cantidad de puntos de su ejercicio</p>
+              <input  type="text" id="cantidadPuntos" required="required" pattern="\d*">
+              <span>Cantidad de Puntos</span>
+            </div>
+    
+            <div class="inputPuntos espacio">
+              <div class="inputBox">
+                  <p>Escriba las variables Xi separadas por coma: ejemplo: 1,2,3,4</p>
+                  <input type="text" name="xi_valores" id="variablesXi" required="required">
+                  <span>Variables Xi</span>
+              </div>
+          
+              <div class="inputBox">
+                  <p>Escriba las variables Yi separadas por coma: ejemplo: 1,2,3,4</p>
+                  <input type="text" name="fi_valores" id="variablesYi" required="required">
+                  <span>Variables Yi</span>
+              </div>
+            </div>
+        
+        <button name="ingresar_valores" id="continuarBtn" >Continuar</button>
+
+        <div class="respuestas">
+          <span id="spanRespuesta" class="respuestaSpan"></span>
+          <p> Resultado del polinomio : {{polinomio}} </p>
+          <p> Resultado del polinomio simplificado : {{simplificado}} </p>
+        </div>
+        
+        <!--Esta seria la parte donde se tendria que mostrar la tabla-->
+        {% if user.is_authenticated %}
+          <h2>Tabla de Diferencias Divididas</h2>
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      {% for titulo in titulos %}
+                        <th>{{ titulo }}</th>
+                      {% endfor %}
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for fila in tabla %}
+                  <tr>
+                      {% for celda in fila %}
+                        <td>{{ celda }}</td>
+                      {% endfor %}
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        {% endif %}
+      
+      </form>
+      </section>
+
+      <!--footer-->
+      <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-left">
+          <div class="row text-center text-md-left">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">HyperMath</h5>
+              <p style="font-size: 16px;">La calculadora avanzada diseñada para resolver problemas complejos de matemáticas de una manera rápida y eficiente. HyperMath se destaca por su capacidad para abordar dos áreas fundamentales del cálculo numérico: las diferencias divididas y el método de Euler.</p>
+            </div>
+      
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">Links</h5>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Inicio</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Euler</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Diferencias Divididas</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Historial</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Método Euler</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Método Diferencias Divididas</a></p>
+            </div>
+      
+            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">Contacto</h5>
+              <p style="font-size: 16px;"><i class="fas fa-home mr-3"></i> El Salvador, San Miguel, Universidad de El Salvador</p>
+              <p style="font-size: 16px;"><i class="fas fa-envelope mr-3"></i> HyperMath@gmail.com</p>
+              <p style="font-size: 16px;"><i class="fas fa-phone mr-3"></i> 503 72843497</p>
+  
+      
+            </div>
+          </div>
+          <hr class="mb-4">
+          <div class="row align-items-center">
+            <div class="col-12 text-center">
+              <p style="font-size: 16px;">Copyright © All rights reserved by:
+                <a href="#" style="text-decoration: none;">
+                  <strong style="color: #449bff;">HyperMath</strong>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static '/js/diferencias.js' %}" defer type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</html>

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static '/css/login.css'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  
+</head>
+<body>
+    <div class="form-container">
+        <div class="col col-1">
+            <div class="image-layer">
+                <img src="" alt="">
+                <img src="{% static '/imagenes/img/calculadora3.png'%}" class="form-image calculadora">
+                <img src="{% static '/imagenes/img/funcion.png'%}" class="form-image funcion">
+                <img src="{% static '/imagenes/img/raiz-cuadrada.png'%}" class="form-image raiz">
+                <img src="{% static '/imagenes/img/trigonometria.png'%}" class="form-image trigonometria">
+                <img src="{% static '/imagenes/img/cifras.png'%}"class="form-image cifras">
+                <img src="{% static '/imagenes/img/triangulo.png'%}" class="form-image triangulo" >
+                <img src="{% static '/imagenes/img/main.png'%}" class="form-image-main">
+            </div>
+            <p class="featured-words">Se parte de nuestra gran familia de<span>HyperMath</span></p>
+        </div>
+
+        <div class="col col-2">
+            <div class="btn-box">
+                <button class="btn btn-2 " id="register">Registrarse</button>
+            </div>
+
+ 
+
+<!-- REGISTER FORM-->
+<form method="POST">
+    {% csrf_token %} 
+<div class="login-form" id="register-form">
+    <div class="form-tittle">
+        <span>Crear cuenta</span>
+    </div>
+    <div class="form-inputs">
+        <div class="input-box">
+            <input type="text" name="email" id="email-input" class="input-field" placeholder="Correo" required>
+            <i class="fa-solid fa-envelope icon"></i>
+        </div>
+        <div class="form-inputs">
+            <div class="input-box">
+                <input type="text"  name="user" id="username-input" class="input-field" placeholder="Usuario" required>
+                <i class="fa-solid fa-user icon"></i>
+            </div>
+            <div class="input-box">
+                <input type="password"  name="contra" id="password-input" class="input-field" placeholder="Contraseña" required>
+                <i class="fa-solid fa-lock icon"></i>
+            </div>
+            <div class="input-box">
+                <button class="input-submit" id="register-submit">
+                    <span>Registrarse</span>
+                    <i class="fa-solid fa-arrow-right "></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+
+</body>
+</html>
+<script src="C:/Users/21517/Desktop/PROYECTO CALCULADORA/Proyecto_Analisis_Num/calculadora/calculadora_app/static/js/login.js" defer type="module"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

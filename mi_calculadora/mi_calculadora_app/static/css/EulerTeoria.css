@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    padding-top: 70px;
+    background-color: #212121;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.content-section {
+    padding: 40px 0;
+}
+.content-section h2, .content-section h3 {
+    margin-bottom: 20px;
+}
+.content-section p {
+    margin-bottom: 20px;
+}
+.content-section .intro-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+.content-section .intro-section img {
+    max-width: 100%;
+    height: auto;
+}
+.content-section .ejemplo, .content-section .ventajas, .content-section .desventajas {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.ejemplo h3, .ventajas h3, .desventajas h3 {
+    color: #449bff;
+}
+.ejemplo table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.ejemplo table, .ejemplo th, .ejemplo td {
+    border: 1px solid #ddd;
+}
+.ejemplo th, .ejemplo td {
+    padding: 8px;
+    text-align: center;
+}
+.ejemplo th {
+    background-color: #449bff;
+    color: white;
+}

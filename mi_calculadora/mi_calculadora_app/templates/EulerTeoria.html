@@ -1,0 +1,211 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoria Metodo Euler</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href={% static "/css/navbar.css" %}>
+    <link rel="stylesheet" href={% static "/css/EulerTeoria.css" %}>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+       <!--NAVBAR CSS-->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+          <a class="navbar-brand me-auto" href="#">HyperMath</a>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link x-lg-2 active" aria-current="page" href="{% url "inicio" %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-2" href="{% url "EulerTeoria" %}">Teoria Euler</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-2" href="{% url "DividTeoria" %}">Teoria Divid</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link mx-lg-2" href="#">Historial</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link mx-lg-2" href="{% url "perfil" %}">Estudiantes</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {% if user.is_authenticated %}
+            <a href={% url "logout" %} class="login-button">Cerrar Sesion</a>
+          {% else %}
+            <a href={% url "login" %} class="login-button">Iniciar Sesion</a>
+            <a href={% url "register" %} class="login-button">Registrarse</a>
+          {% endif %}
+          <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
+
+
+      <section class="content-section">
+        <div class="container">
+            <div class="intro-section">
+                <div>
+                    <h2>Método de Euler</h2>
+                    <p>En matemática y computación, el método de Euler, llamado así en honor a Leonhard Euler, es un procedimiento de integración numérica para resolver ecuaciones diferenciales ordinarias (EDO) a partir de un valor inicial dado. El método de Euler es el más simple de los métodos numéricos para resolver un problema de valor inicial, y el más simple de los Métodos de Runge-Kutta. El método de Euler es nombrado por Leonhard Euler, quien lo trató en su libro Institutionum calculi integralis (publicado en 1768-1770).</p>
+                    <p>El método de Euler es un método de primer orden, lo que significa que el error local es proporcional al cuadrado del tamaño del paso, y el error global es proporcional al tamaño del paso. El método de Euler regularmente sirve como base para construir métodos más complejos.</p>
+                </div>
+                <img src="{% static "/imagenes/img/Euler_method.svg.png" %}" alt="Imagen del método de Euler">
+                <p>Ilustración del método de Euler. La curva desconocida está en azul, y su aproximación poligonal en rojo.</p>
+            </div>
+
+            <div class="ejemplo">
+                <h3>Ejemplo del Método de Euler</h3>
+                <p>Consideremos la ecuación diferencial ordinaria: <strong>dy/dx = f(x, y)</strong> con la condición inicial <strong>y(x<sub>0</sub>) = y<sub>0</sub></strong>.</p>
+                <p>El método de Euler utiliza la fórmula: <strong>y<sub>n+1</sub> = y<sub>n</sub> + h * f(x<sub>n</sub>, y<sub>n</sub>)</strong> y tambien<strong>  x <sub>n+1</sub> = x <sub>n</sub> + h </strong> ,donde <strong>h</strong> es el tamaño del paso.</p>
+                <p>Ejemplo:</p>
+                <ul>
+                    <li>f(x, y) = -2xy</li>
+                    <li>x<sub>0</sub> = 0, y<sub>0</sub> = 1</li>
+                    <li>h = 0.1</li>
+                    <li>Número de pasos = 10</li>
+                </ul>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recorrido</th>
+                            <th>x</th>
+                            <th>y</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>0.0</td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>0.1</td>
+                            <td>1.0</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>0.2</td>
+                            <td>0.98</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>0.3</td>
+                            <td>0.941192</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>0.4</td>
+                            <td>0.873454</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>0.5</td>
+                            <td>0.779280</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>0.6</td>
+                            <td>0.666488</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>0.7</td>
+                            <td>0.548793</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>0.8</td>
+                            <td>0.444317</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>0.9</td>
+                            <td>0.355292</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>1.0</td>
+                            <td>0.277120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="ventajas">
+                <h3>Ventajas del Método de Euler</h3>
+                <ul>
+                    <li>Es simple de implementar y entender.</li>
+                    <li>Es eficiente para problemas donde se requiere una solución rápida y aproximada.</li>
+                </ul>
+            </div>
+
+            <div class="desventajas">
+                <h3>Desventajas del Método de Euler</h3>
+                <ul>
+                    <li>El error puede acumularse rápidamente, especialmente si el tamaño del paso no es lo suficientemente pequeño.</li>
+                    <li>No es adecuado para problemas que requieren alta precisión.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+ <!--footer-->
+      <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container text-center text-md-left">
+          <div class="row text-center text-md-left">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">HyperMath</h5>
+              <p style="font-size: 16px;">La calculadora avanzada diseñada para resolver problemas complejos de matemáticas de una manera rápida y eficiente. HyperMath se destaca por su capacidad para abordar dos áreas fundamentales del cálculo numérico: las diferencias divididas y el método de Euler.</p>
+            </div>
+      
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">Links</h5>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Inicio</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Euler</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Diferencias Divididas</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Historial</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Método Euler</a></p>
+              <p><a href="#" class="text-white" style="text-decoration: none; font-size: 16px;">Método Diferencias Divididas</a></p>
+            </div>
+      
+            <div class="col-md-3 col-lg-3 col-xl-2 mx-auto mt-3">
+              <h5 class="text-uppercase mb-4 font-weight-bold" style="color: #449bff;">Contacto</h5>
+              <p style="font-size: 16px;"><i class="fas fa-home mr-3"></i> El Salvador, San Miguel, Universidad de El Salvador</p>
+              <p style="font-size: 16px;"><i class="fas fa-envelope mr-3"></i> HyperMath@gmail.com</p>
+              <p style="font-size: 16px;"><i class="fas fa-phone mr-3"></i> 503 72843497</p>
+  
+      
+            </div>
+          </div>
+          <hr class="mb-4">
+          <div class="row align-items-center">
+            <div class="col-12 text-center">
+              <p style="font-size: 16px;">Copyright © All rights reserved by:
+                <a href="#" style="text-decoration: none;">
+                  <strong style="color: #449bff;">HyperMath</strong>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</html>
