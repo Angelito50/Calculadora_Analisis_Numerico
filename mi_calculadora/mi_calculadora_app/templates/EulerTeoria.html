@@ -33,8 +33,8 @@
                 </li>
                 {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link mx-lg-2" href="#">Historial</a>
-                </li>
+                  <a class="nav-link mx-lg-2" href="{% url "historial" %}">Historial</a>
+                </li> 
                 {% endif %}
                 <li class="nav-item">
                   <a class="nav-link mx-lg-2" href="{% url "perfil" %}">Estudiantes</a>

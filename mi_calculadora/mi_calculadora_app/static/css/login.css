@@ -9,6 +9,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 body{
 /*background: url('/img/fondo2.jpg');*/
 /*background:  url('/img/img-fondo-login/fondo8.jpeg');*/

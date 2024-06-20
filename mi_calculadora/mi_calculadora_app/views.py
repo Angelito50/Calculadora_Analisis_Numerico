@@ -211,8 +211,12 @@ def Euler_Method(request):
 
 
 def historial(request):
-    return render(request, 'historial.html')
-
+    user = request.user.id
+    #Recorrer tabla de divididas
+    obj_tbl_divid = list(tbl_Ecuaciones.objects.filter(user_id=user))
+    #Recorrer  tabla de euler
+    obj_tbl_euler = list(tbl_Euler.objects.filter(user_id=user))
+    return render(request, 'historial.html', {'historial_divid': obj_tbl_divid, 'historial_euler':obj_tbl_euler})
 
 def EulerTeoria(request):
     return render(request, 'EulerTeoria.html')

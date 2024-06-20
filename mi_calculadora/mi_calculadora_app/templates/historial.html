@@ -3,11 +3,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagina Inicio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static '/css/index.css'%}">
+    <title>Historial</title>
     <link rel="stylesheet" href="{% static '/css/navbar.css'%}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            padding-top: 70px;
+            background-color: #212121 !important;
+        }
+
+        .historial-section {
+            width: 80%;
+            margin: 50px auto;
+            margin-top: 50px !important;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
     <!--NAVBAR CSS-->
@@ -54,26 +111,56 @@
         </div>
       </nav>
 
-      <!--SECCION DE BIENVENIDA-->
-      <section class="Bienvenida-secction">
-        <div class="container d-flex align-items-center justify-content-center fs-1 text-white flex-column">
-            <h1>Bienvenido a nuestra calculadora HyperMath</h1>
-            <h2>Elige que metodo deseas resolver</h2>
-            
-            <div class="seccion-btn">
-                <a href={% url "divid" %} class="btn btn-1">Diferencias Divididas</a>
-                <a href={% url "euler" %} class="btn btn-2">Euler Edo</a>
-            </div>
-        </div>
-      </section>
+    <section class="historial-section">
+        <h1>Historial de Divididas</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ecuacion</th>
+                    <th>Ecuacion simplificada</th>
+                    <th>XI</th>
+                    <th>FI</th>
+                    <th>User_id</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in historial_divid %}
+                    <tr>
+                        <td>{{ item.ecuacion }}</td>
+                        <td>{{ item.ecuacion_simplificada }}</td>
+                        <td>{{ item.xi_ecuacion }}</td>
+                        <td>{{ item.fi_ecuacion }}</td>
+                        <td>{{ item.user_id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-      <!--SECCION DE TEORIA-->
-      <section class="Seccion-Teoria">
+        <h1>Historial de Euler</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Ecuaion</th>
+                    <th>H</th>
+                    <th>S</th>
+                    <th>User_id</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in historial_euler %}
+                    <tr>
+                        <td>{{ item.ecuacion }}</td>
+                        <td>{{ item.h }}</td>
+                        <td>{{ item.s }}</td>
+                        <td>{{ item.user_id }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
 
-      </section>    
-
-      <!--footer-->
-      <footer class="bg-dark text-white pt-5 pb-4">
+    <!--footer-->
+    <footer class="bg-dark text-white pt-5 pb-4">
         <div class="container text-center text-md-left">
           <div class="row text-center text-md-left">
             <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
