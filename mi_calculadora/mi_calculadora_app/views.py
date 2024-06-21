@@ -226,3 +226,9 @@ def DividTeoria(request):
 
 def Perfiles(request):
     return render(request, 'perfil.html')
+
+def usuario_perfil(request):
+    nombre = request.user.username
+    correo = request.user.email  
+    contra = request.user.password
+    return render(request, 'usuario_perfil.html', {'nombre_usu':nombre, 'correo_usu':correo, 'contra_usu':contra})

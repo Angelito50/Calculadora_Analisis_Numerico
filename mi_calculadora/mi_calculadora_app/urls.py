@@ -13,5 +13,6 @@ urlpatterns = [
     path('EulerTeoria/', views.EulerTeoria, name='EulerTeoria'),
     path('DividTeoria/', views.DividTeoria, name='DividTeoria'),
     path('perfil/',views.Perfiles, name='perfil'),
-    path('historial/', views.historial, name='historial')
+    path('historial/', views.historial, name='historial'),
+    path('usuario_perfil/', views.usuario_perfil, name='usuario_perfil')
 ]
