@@ -98,24 +98,35 @@
         <table>
             <thead>
                 <tr>
-                    <th>Recorrido</th>
-                    <th>x</th>
-                    <th>y</th>
+                  <th>Recorrido</th>
+                  <th>x<sub>n</sub></th>
+                  <th>y<sub>n</sub></th>
+                  <th>x<sub>n+1</sub></th>
+                  <th>y<sub>n+1</sub></th>
                 </tr>
             </thead>
             <tbody>
-                {% for x, y in resultados %}
-                    <tr>
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ x }}</td>
-                        <td>{{ y }}</td>
-                    </tr>
-                {% endfor %}
+              {% for iteracion, x_n, y_n, x_np1, y_np1 in resultados %}
+                  <tr>
+                      <td>{{ iteracion }}</td>
+                      <td>{{ x_n }}</td>
+                      <td>{{ y_n }}</td>
+                      <td>{{ x_np1 }}</td>
+                      <td>{{ y_np1 }}</td>
+                  </tr>
+              {% endfor %}
             </tbody>
         </table>
+
+        
     </div>
 
-     
+     <div class="grafica">
+      {% if user.is_authenticated %}
+      <h2>Gráfica del Método de Euler</h2>
+      <img src="data:image/png;base64,{{ grafic }}" alt="Gráfica del Método de Euler">    
+      {% endif %}
+     </div>
     </form>
 
 </section>

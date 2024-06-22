@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt
+from io import BytesIO
+import base64
 from .models import *
 from django.http import HttpResponse
 import math
@@ -67,6 +69,7 @@ def Dif_Divididas(request):
     tabla_final = []
     user = 0
     title = ''
+    graphic = ''
     
     #Importante
     objeto = tbl_Ecuaciones()
@@ -155,6 +158,33 @@ def Dif_Divididas(request):
         
         polinomio_simplificado = polisimple
         
+        #Grafica
+        # Puntos para la gráfica
+        muestras = 101
+        a = np.min(xi)
+        b = np.max(xi)
+        pxi = np.linspace(a, b, muestras)
+        pfi = px(pxi)
+
+        # Generar gráfica
+        plt.figure()
+        plt.plot(xi, fi, 'bo', label='Puntos dados')
+        plt.plot(pxi, pfi, 'r-', label='Interpolación')
+        plt.xlabel('x')
+        plt.ylabel('f(x)')
+        plt.title('Interpolación por Diferencias Divididas')
+        plt.legend()
+
+        # Guardar la gráfica en un objeto BytesIO
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_png = buffer.getvalue()
+        buffer.close()
+
+        # Convertir la imagen a base64 para pasarla al HTML
+        graphic = base64.b64encode(image_png).decode('utf-8')
+        
         #Guardar en la DataBase
         objeto.xi_ecuacion = xi
         objeto.fi_ecuacion = fi
@@ -164,7 +194,7 @@ def Dif_Divididas(request):
         objeto.save()
 
     return render(request, 'index.html', {'polinomio':pol_nomio, 'simplificado':polinomio_simplificado
-                                          , 'tabla':tabla_final, 'titulos':title})
+                                          ,'tabla':tabla_final, 'titulos':title, 'grafic':graphic})
 
 def funcion(x, y, ecuacion):
     expr = parse_expr(ecuacion, evaluate=True)  # Evaluar la expresión
@@ -174,6 +204,7 @@ def Euler_Method(request):
     resultados = []
     Euler_objeto = tbl_Euler()
     user = 0
+    graphic = ''
     
     if request.method == 'POST':
         h = float(request.POST.get('h'))
@@ -183,7 +214,6 @@ def Euler_Method(request):
         if request.user.is_authenticated:
             user = request.user.id
         else:
-            # Valor por defecto para usuarios no autenticados
             user = None 
         
         Euler_objeto.h = h
@@ -194,21 +224,54 @@ def Euler_Method(request):
 
         x, y = sp.symbols('x y')
 
-        # Número de pasos
         n = int(s / h) + 1
         x_vals = np.zeros(n)
         y_vals = np.zeros(n)
         
-        # Valor inicial de y, suponiendo y(0) = 0
         y_vals[0] = 0
 
         for i in range(1, n):
-            y_vals[i] = y_vals[i - 1] + funcion(x_vals[i - 1], y_vals[i - 1], ecuacion) * h
-            x_vals[i] = x_vals[i - 1] + h
-            resultados.append((x_vals[i], y_vals[i]))
+            x_n = x_vals[i - 1]
+            y_n = y_vals[i - 1]
+            y_np1 = y_n + funcion(x_n, y_n, ecuacion) * h
+            x_np1 = x_n + h
+            
+            # Redondear los valores a 4 decimales
+            x_n = round(x_n, 4)
+            y_n = round(y_n, 4)
+            x_np1 = round(x_np1, 4)
+            y_np1 = round(y_np1, 4)
+            
+            y_vals[i] = y_np1
+            x_vals[i] = x_np1
+            resultados.append((i, x_n, y_n, x_np1, y_np1))
         
-    return render(request, 'euler.html', {'resultados': resultados})
+       # Crear la figura
+        plt.figure()
 
+        # Graficar la línea azul
+        plt.plot(x_vals, y_vals, 'b-', label='Aproximación de Euler')
+
+        # Agregar puntos rojos
+        plt.scatter(x_vals, y_vals, color='red')
+
+        # Etiquetas y título
+        plt.xlabel('x')
+        plt.ylabel('y')
+        plt.title('Método de Euler')
+        plt.legend()
+
+        # Guardar la gráfica en un buffer
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        image_png = buffer.getvalue()
+        buffer.close()
+
+        # Convertir la imagen a base64
+        graphic = base64.b64encode(image_png).decode('utf-8')
+        
+    return render(request, 'euler.html', {'resultados': resultados, 'grafic': graphic})
 
 def historial(request):
     user = request.user.id
