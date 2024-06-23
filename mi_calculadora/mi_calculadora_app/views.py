@@ -205,6 +205,7 @@ def Euler_Method(request):
     Euler_objeto = tbl_Euler()
     user = 0
     graphic = ''
+    ultimo_yn = 0  # Variable para almacenar el último valor de Yn
     
     if request.method == 'POST':
         h = float(request.POST.get('h'))
@@ -220,7 +221,6 @@ def Euler_Method(request):
         Euler_objeto.s = s 
         Euler_objeto.ecuacion = ecuacion
         Euler_objeto.user_id = user
-        Euler_objeto.save()
 
         x, y = sp.symbols('x y')
 
@@ -246,7 +246,10 @@ def Euler_Method(request):
             x_vals[i] = x_np1
             resultados.append((i, x_n, y_n, x_np1, y_np1))
         
-       # Crear la figura
+        # Obtener el último valor de Yn
+        ultimo_yn = round(y_vals[-1],4)
+        
+        # Crear la figura
         plt.figure()
 
         # Graficar la línea azul
@@ -270,8 +273,10 @@ def Euler_Method(request):
 
         # Convertir la imagen a base64
         graphic = base64.b64encode(image_png).decode('utf-8')
+    Euler_objeto.resultado = ultimo_yn
+    Euler_objeto.save()
         
-    return render(request, 'euler.html', {'resultados': resultados, 'grafic': graphic})
+    return render(request, 'euler.html', {'resultados': resultados, 'grafic': graphic, 'ultimo_yn': ultimo_yn})
 
 def historial(request):
     user = request.user.id

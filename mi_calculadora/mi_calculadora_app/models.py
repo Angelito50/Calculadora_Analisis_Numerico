@@ -28,6 +28,7 @@ class tbl_Euler(models.Model):
     ecuacion = models.CharField(max_length=200)
     h = models.CharField(max_length=200)
     s = models.CharField(max_length=200)
+    resultado = models.CharField(max_length=200, null=True)
     
 """    
 class tbl_Soluciones(models.Model):
