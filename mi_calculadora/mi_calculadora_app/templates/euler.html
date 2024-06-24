@@ -197,7 +197,10 @@
         <p><a href="{% url "inicio" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Inicio</a></p>
         <p><a href="{% url "EulerTeoria" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Euler</a></p>
         <p><a href="{% url "DividTeoria" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Teoría Diferencias Divididas</a></p>
-        <p><a href="{% url "historial" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Historial</a></p>
+        
+        {% if user.is_authenticated %}
+            <p><a href="{% url "historial" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Historial</a></p>
+            {% endif %}
         <p><a href="{% url "euler" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Método Euler</a></p>
         <p><a href="{% url "divid" %}" class="text-white" style="text-decoration: none; font-size: 16px;">Método Diferencias Divididas</a></p>
       </div>
